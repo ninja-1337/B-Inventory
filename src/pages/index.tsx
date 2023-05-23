@@ -21,17 +21,17 @@ const Home: NextPage = () => {
 
   const { data: session, status } = useSession();
   // {((formData.pricePerKg*formData.alivekg)+formData.slaugherPrice+formData.transferPrice)/formData.revievedNetKG}
-  const netAfterkatharismaPricePerKg= (afterCosts:Number , wholeCost: Number)=>{
+  const netAfterkatharismaPricePerKg= (afterCosts:number , wholeCost: number)=>{
  
     const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
     return ( all / parseInt(formData.netKgAfterkatharisma.toString()) )
     }
-  const netPricePerKg= (afterCosts:Number , wholeCost: Number)=>{
+  const netPricePerKg= (afterCosts:number , wholeCost: number)=>{
  
     const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
     return ( all / parseInt(formData.revievedNetKG.toString()) )
     }
-const afterCosts= (tcost:Number , scost: Number)=>{
+const afterCosts= (tcost:number , scost: number)=>{
 return parseInt(tcost.toString())+parseInt(scost.toString())
 }
   const [formData, setFormData] = useState<FormData>({
