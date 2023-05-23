@@ -70,7 +70,7 @@ function NavBar() {
       >
         <Link href="/">
           <Text b color="inherit" hideIn="xs">
-          Verbal Agent
+          B-Inventory
           </Text>
         </Link>
       </Navbar.Brand>
@@ -80,24 +80,14 @@ function NavBar() {
         hideIn="xs"
         variant="highlight"
       >
-       <Link color="inherit" href="/ai">
+       <Link color="inherit" href="/">
        <Text b color="inherit" hideIn="xs">
        App
           </Text> 
         </Link>
         <Spacer />
-        <Link href="/contact">  <Text b color="inherit" hideIn="xs">
-        Contact Us
-          </Text> </Link>
         <Spacer />
-      
-        <Spacer />
-        <Link href="/guestbook">
-        <Text b color="inherit" hideIn="xs">
-        Reviews
-          </Text> 
-          </Link>
-        <Spacer />
+
         <Link href="/about">
         <Text b color="inherit" hideIn="xs">
         About
@@ -238,38 +228,17 @@ function NavBar() {
       </Navbar.Content>
       <Navbar.Collapse  color="white" disableAnimation>
       <Navbar.CollapseItem key="About" color="white" activeColor="warning">
-      <Link color="inherit" href="/ai" onClick={() => HandleSideMenu()}>
+      <Link color="inherit" href="/" onClick={() => HandleSideMenu()}>
             App
           </Link>
         </Navbar.CollapseItem>
-        <Navbar.CollapseItem key="About" activeColor="warning">
-        <Link
-            color="inherit"
-            href="/contact"
-            onClick={() => HandleSideMenu()}
-          >
-            Contact Us
-          </Link>
-        </Navbar.CollapseItem>
+ 
         <Navbar.CollapseItem key="Projects" activeColor="warning">
         <Link color="inherit" href="/chats" onClick={() => HandleSideMenu()}>
             Saved Chats
           </Link>
         </Navbar.CollapseItem>
-        <Navbar.CollapseItem key="About" activeColor="warning">
-        <Link color="inherit" href="/about" onClick={() => HandleSideMenu()}>
-            About
-          </Link>
-        </Navbar.CollapseItem>
-        <Navbar.CollapseItem key="About" activeColor="warning">
-        <Link
-            color="inherit"
-            href="/guestbook"
-            onClick={() => HandleSideMenu()}
-          >
-            Reviews
-          </Link>
-        </Navbar.CollapseItem>
+      
         
       </Navbar.Collapse>
       
