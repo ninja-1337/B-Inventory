@@ -3,8 +3,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { SocialIcon } from "react-social-icons";
-import { trpc } from "../utils/trpc";
+import { trpc } from "../../utils/trpc";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/router';
+ 
 interface FormData {
 
   alivePigNo:number;
@@ -18,7 +20,7 @@ interface FormData {
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-
+  const router = useRouter();
   const { data: session, status } = useSession();
   // {((formData.pricePerKg*formData.alivekg)+formData.slaugherPrice+formData.transferPrice)/formData.revievedNetKG}
   const netAfterkatharismaPricePerKg= (afterCosts:number , wholeCost: number)=>{
@@ -65,11 +67,11 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
   
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b">
    
-        
+       
       <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
            <span className="text-[hsl(280,100%,70%)]"> B </span> inventory
           </h1>
-   
+          <p>Arrival ID: {router.query.inventory}</p>
         <form onSubmit={handleSubmit}>
         <h2 className="text-2xl font-extrabold tracking-tight ">
            <span className="text-[hsl(280,100%,70%)]">  </span> Alive

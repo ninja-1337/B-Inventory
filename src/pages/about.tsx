@@ -19,18 +19,10 @@ const Home: NextPage = () => {
             <span className="text-2xl font-bold text-white"></span>
           </h1>
 
-          <p className="text-2xl font-bold text-white">
-            Our app allows you to generate high-quality, human-like text for a
-            variety of use cases. Whether you need a summary of a long article,
-            a translation of a document, or an answer to a difficult question,
-            our app can help. Simply enter your text or query and let our
-            app&apos;s GPT-3-powered agent do the rest. You&apos;ll be amazed at
-            how accurate and natural the generated text is.
+          <p className="text-2xl font-bold ">
+  Works as a calculator
           </p>
-          <p className="text-2xl font-bold text-white">
-            Thank you for trying out our app. We hope you find it useful and
-            convenient to use.
-          </p>
+    
         </div>
       </main>
     </>
