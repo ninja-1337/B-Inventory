@@ -44,7 +44,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
     console.log(formData);
   };
 
-  var slug=router.query.inventory?.toString()
+  let slug=router.query.inventory?.toString()
  
   const { data: ArrivalData } = trpc.auth.getParalaviById.useQuery({ text: slug});
 
