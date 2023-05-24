@@ -94,14 +94,20 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
            <span className="text-[hsl(280,100%,70%)]"> P</span>aralaves
           </h1>
           <div>
-
-    {paralaves?.map((paralavi)=>{
-      return<div className="border border-gray-500 rounded-xl m-4 p-3"> <Link  href={"/paralavi/"+paralavi.id}><><div>Paralavi ID: {paralavi.id}</div>
+          {paralaves && paralaves.map((paralavi, index) => {
+  return (
+    <div key={index} className="border border-gray-500 rounded-xl m-4 p-3">
+        <Link  href={"/paralavi/"+paralavi.id}> <> <div>Paralavi ID: {paralavi.id}</div>
       <div >Recieved At: {paralavi.RecievedAt.toDateString()}<> </>{paralavi.RecievedAt.toLocaleTimeString()}</div>
       </>
       </Link>
-      </div>
-    })}
+    </div>
+  );
+})}
+  
+
+
+
     </div>
          
             <button onClick={hadnleArrival} className="rounded-full bg-orange-400 p-6 text-white">
