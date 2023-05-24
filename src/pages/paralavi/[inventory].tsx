@@ -4,9 +4,9 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { SocialIcon } from "react-social-icons";
 import { trpc } from "../../utils/trpc";
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/router';
- 
+
 interface FormData {
 
   alivePigNo:number;
@@ -19,7 +19,7 @@ interface FormData {
 }
 
 const Home: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+ 
   const router = useRouter();
   const { data: session, status } = useSession();
   // {((formData.pricePerKg*formData.alivekg)+formData.slaugherPrice+formData.transferPrice)/formData.revievedNetKG}
@@ -36,26 +36,66 @@ const Home: NextPage = () => {
 const afterCosts= (tcost:number , scost: number)=>{
 return parseInt(tcost.toString())+parseInt(scost.toString())
 }
-  const [formData, setFormData] = useState<FormData>({
 
-    alivekg:0,
-    alivePigNo:0,
-    pricePerKg:0,
-    slaugherPrice:0,
-    transferPrice:0,
-    revievedNetKG:0,
-    netKgAfterkatharisma:0
-  });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+ 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Perform any necessary form submission logic here
     console.log(formData);
   };
 
+  const messageMe = trpc.auth.messageMe.useMutation({
+    async onSuccess() {
+      // refetches posts after a post is added
+    },
+  });
+
+  const slug=router.query.inventory?.toString()
+ 
+  const { data: ArrivalData } = trpc.auth.getParalaviById.useQuery({ text: slug});
+
+  const updateparagelia = trpc.auth.updateParagelia.useMutation();
+
+  const [formData, setFormData] = useState<FormData>({
+
+    alivekg:parseInt(ArrivalData?.AliveKg.toString()+""),
+    alivePigNo:parseInt(ArrivalData?.AlivePigNumber+""),
+    pricePerKg:parseInt(ArrivalData?.AlivePricePerKg+""),
+    slaugherPrice:parseInt(ArrivalData?.SlaugherCost+""),
+    transferPrice:parseInt(ArrivalData?.TransferCost+""),
+    revievedNetKG:parseInt(ArrivalData?.recievedNetKG+""),
+    netKgAfterkatharisma:parseInt(ArrivalData?.netKgAfterkatharisma+"")
+  });
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  
+  };
+
+useEffect(() => {
+  updateparagelia.mutateAsync({id:ArrivalData?.id.toString()+"",
+  alivekg:formData?.alivekg.toString()+"",
+  alivePigNo:formData?.alivePigNo.toString()+"",
+  netKgAfterkatharisma:formData?.netKgAfterkatharisma.toString()+"",
+  pricePerKg:formData?.pricePerKg.toString()+"",
+  revievedNetKG:formData?.revievedNetKG.toString()+"",
+  slaugherPrice:formData?.slaugherPrice.toString()+"",
+  transferPrice:formData?.transferPrice.toString()+"",
+})
+ 
+}, [formData]); // Empty dependency array ensures the effect runs only once
+
+useEffect(() => {
+  updateparagelia.mutateAsync({id:ArrivalData?.id.toString()+"",
+  alivekg:formData?.alivekg.toString()+"",
+  alivePigNo:formData?.alivePigNo.toString()+"",
+  netKgAfterkatharisma:formData?.netKgAfterkatharisma.toString()+"",
+  pricePerKg:formData?.pricePerKg.toString()+"",
+  revievedNetKG:formData?.revievedNetKG.toString()+"",
+  slaugherPrice:formData?.slaugherPrice.toString()+"",
+  transferPrice:formData?.transferPrice.toString()+"",
+})
+ 
+}, []); // Empty dependency array ensures the effect runs only once
 
   return (
     <>
@@ -72,6 +112,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
            <span className="text-[hsl(280,100%,70%)]"> B </span> inventory
           </h1>
           <p>Arrival ID: {router.query.inventory}</p>
+          <p>Recieved At: {ArrivalData?.RecievedAt.toLocaleString()}</p>
         <form onSubmit={handleSubmit}>
         <h2 className="text-2xl font-extrabold tracking-tight ">
            <span className="text-[hsl(280,100%,70%)]">  </span> Alive
@@ -169,7 +210,6 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
        <label htmlFor="name">€</label>
       </div>
     
-      <button type="submit">Submit</button>
     </form>
         {/* {!session && (
           // eslint-disable-next-line @next/next/no-html-link-for-pages
@@ -199,11 +239,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
            
           </>
         )} */}
-           <Link href="/ai">
-            <button className="rounded-full bg-orange-400 p-6 text-white">
-            +  New Arrival
-            </button>
-          </Link>
+           
       </main>
     </>
   );

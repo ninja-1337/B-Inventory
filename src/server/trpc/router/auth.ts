@@ -62,14 +62,19 @@ export const authRouter = router({
 
     });
   }),
-  getParalaviById: publicProcedure.query(({ ctx,input}) => {
+
+  getParalaviById: publicProcedure
+  .input(z.object({ text: z.string().nullish() }).nullish())
+  .query(({ ctx,input}) => {
     return ctx.prisma.paralaves.findUnique({
       where: {
-        id:input.toString()
+        id:input?.text?.toString()
       },
     });
   }),
-  getUserMessages: protectedProcedure.query(({ ctx }) => {
+  getUserMessages: protectedProcedure
+  .input(z.object({ text: z.string().nullish() }).nullish())
+  .query(({ ctx }) => {
     return ctx.prisma.message.findMany({
       where: {
         userId: ctx.session.user.id,
@@ -114,6 +119,19 @@ export const authRouter = router({
         },
       });
     }),
+    getParalavByID: publicProcedure
+    .input(
+      z.object({
+        text: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.paralaves.findUnique({
+        where: {
+          id:input.toString()
+        },
+      });
+    }),
   add: protectedProcedure
     .input(
       z.object({
@@ -138,10 +156,45 @@ export const authRouter = router({
     .mutation(async ({ ctx, input }) => {
        return  await prisma.paralaves.create({
       data:{AliveKg:"",
+      TransferCost:"",
+      recievedNetKG:"",
+      netKgAfterkatharisma:"",
+
+      AlivePigNumber:"",
       AlivePricePerKg:"",
       SlaugherCost:"",
       }
       });
+    }),
+    updateParagelia: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        alivePigNo: z.string(),
+        alivekg: z.string(),
+        pricePerKg: z.string(),
+        slaugherPrice: z.string(),
+        transferPrice: z.string(),
+        revievedNetKG: z.string(),
+        netKgAfterkatharisma: z.string(),
+       
+    
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+    await prisma.paralaves.update({
+        where: { id: input.id.toString() }, // Specify the ID of the paralaves record you want to update
+        data: {
+          AliveKg: input.alivekg,
+          TransferCost: input.transferPrice,
+          recievedNetKG: input.revievedNetKG,
+          netKgAfterkatharisma: input.netKgAfterkatharisma,
+          AlivePigNumber: input.alivePigNo,
+          AlivePricePerKg: input.pricePerKg,
+          SlaugherCost: input.slaugherPrice,
+        },
+      });
+      
     }),
   messageMe: protectedProcedure
     .input(

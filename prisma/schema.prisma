@@ -107,7 +107,11 @@ model Paralaves {
   id         String   @id @default(cuid())
   RecievedAt DateTime @default(now())
   Valuesupdated_at DateTime @default(now())
+  AlivePigNumber       String
   AliveKg       String
+    TransferCost       String
   AlivePricePerKg     String
    SlaugherCost       String
+   recievedNetKG      String 
+   netKgAfterkatharisma String
 }
