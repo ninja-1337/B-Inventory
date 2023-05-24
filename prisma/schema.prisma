@@ -101,3 +101,16 @@ model agents {
   updated_at DateTime @default(now())
   user       User     @relation("uagent", fields: [userId], references: [id])
 }
+
+
+model Paralaves {
+  id         String   @id @default(cuid())
+  name       String
+  prompt     String
+}
+model Paralavi {
+  id         String   @id @default(cuid())
+  AliveKg       String
+  AliveKg       String
+  AlivePricePerKg     String
+}
