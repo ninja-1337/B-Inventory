@@ -182,18 +182,37 @@ export const authRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-    await prisma.paralaves.update({
-        where: { id: input.id.toString() }, // Specify the ID of the paralaves record you want to update
-        data: {
-          AliveKg: input.alivekg,
-          TransferCost: input.transferPrice,
-          recievedNetKG: input.revievedNetKG,
-          netKgAfterkatharisma: input.netKgAfterkatharisma,
-          AlivePigNumber: input.alivePigNo,
-          AlivePricePerKg: input.pricePerKg,
-          SlaugherCost: input.slaugherPrice,
-        },
-      });
+      const recordId = input.id.toString();
+
+      try {
+        const existingRecord = await prisma.paralaves.findUnique({
+          where: { id: recordId },
+        });
+      
+        if (!existingRecord) {
+          // Handle the case when the record is not found
+          console.log(`Record with ID ${recordId} not found.`);
+          return; // Or you can perform any other desired action
+        }
+      
+        const updatedParalaves = await prisma.paralaves.update({
+          where: { id: recordId },
+          data: {
+            AliveKg: input.alivekg,
+            TransferCost: input.transferPrice,
+            recievedNetKG: input.revievedNetKG,
+            netKgAfterkatharisma: input.netKgAfterkatharisma,
+            AlivePigNumber: input.alivePigNo,
+            AlivePricePerKg: input.pricePerKg,
+            SlaugherCost: input.slaugherPrice,
+          },
+        });
+      
+        console.log(updatedParalaves);
+      } catch (error) {
+        // Handle the error silently
+        console.error("An error occurred while updating the record:", error);
+      }
       
     }),
   messageMe: protectedProcedure
