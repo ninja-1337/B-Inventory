@@ -57,6 +57,18 @@ export const authRouter = router({
       },
     });
   }),
+  getParalaves: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.paralaves.findMany({
+
+    });
+  }),
+  getParalaviById: publicProcedure.query(({ ctx,input}) => {
+    return ctx.prisma.paralaves.findUnique({
+      where: {
+        id:input.toString()
+      },
+    });
+  }),
   getUserMessages: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.message.findMany({
       where: {
@@ -115,6 +127,20 @@ export const authRouter = router({
           body: input.text,
           userId: ctx.session?.user.id,
         },
+      });
+    }),
+    NewArrival: publicProcedure
+    .input(
+      z.object({
+        text: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+       return  await prisma.paralaves.create({
+      data:{AliveKg:"",
+      AlivePricePerKg:"",
+      SlaugherCost:"",
+      }
       });
     }),
   messageMe: protectedProcedure

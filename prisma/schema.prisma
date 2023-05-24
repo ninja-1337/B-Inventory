@@ -105,12 +105,9 @@ model agents {
 
 model Paralaves {
   id         String   @id @default(cuid())
-  name       String
-  prompt     String
-}
-model Paralavi {
-  id         String   @id @default(cuid())
-  AliveKg       String
+  RecievedAt DateTime @default(now())
+  Valuesupdated_at DateTime @default(now())
   AliveKg       String
   AlivePricePerKg     String
+   SlaugherCost       String
 }
