@@ -155,14 +155,14 @@ export const authRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
        return  await prisma.paralaves.create({
-      data:{AliveKg:"",
-      TransferCost:"",
-      recievedNetKG:"",
-      netKgAfterkatharisma:"",
+      data:{AliveKg:"NaN",
+      TransferCost:"NaN",
+      recievedNetKG:"NaN",
+      netKgAfterkatharisma:"NaN",
 
-      AlivePigNumber:"",
-      AlivePricePerKg:"",
-      SlaugherCost:"",
+      AlivePigNumber:"NaN",
+      AlivePricePerKg:"NaN",
+      SlaugherCost:"NaN",
       }
       });
     }),

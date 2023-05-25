@@ -103,10 +103,10 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
 
           {(typeof ArrivalData?.AliveKg === 'string' && !isFetching)&&
         <form onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-extrabold tracking-tight ">
+        <h2 className="items-center justify-center flex  flex-col text-2xl font-extrabold tracking-tight ">
            <span className="text-[hsl(280,100%,70%)]">  </span> Alive
           </h2>
-          <div>
+          <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Alive Pig Number:</label>
         <input
           type="number"
@@ -116,7 +116,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Alive KG in Total:</label>
         <input
           type="number"
@@ -126,7 +126,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Alive Price Per KG :</label>
         <input
           type="number"
@@ -136,14 +136,14 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Whole Alive Costs :</label>
        {formData.alivekg*formData.pricePerKg}  <label htmlFor="name">€</label>
       </div>
-      <h2 className="text-2xl font-extrabold tracking-tight ">
+      <h2 className="items-center justify-center flex  flex-col text-2xl font-extrabold tracking-tight ">
            <span className="text-[hsl(280,100%,70%)]">  </span> + Costs After
           </h2>
-      <div>
+      <div className="items-center justify-center flex   ">
         <label htmlFor="name">Slaugher Costs :</label>
         <input
           type="number"
@@ -153,7 +153,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Transfer Costs :</label>
         <input
           type="number"
@@ -163,10 +163,10 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           onChange={handleChange}
         />
       </div>
-      <h2 className="text-2xl font-extrabold tracking-tight ">
+      <h2 className="items-center justify-center flex  flex-col text-2xl font-extrabold tracking-tight ">
            <span className="text-[hsl(280,100%,70%)]">  </span> Paralavi
           </h2>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Net Recieved Kg :</label>
         <input
           type="number"
@@ -177,13 +177,13 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
         />
       </div>
       
-      <div>
+      <div  className="items-center justify-center flex   ">
 
         <label htmlFor="name">Net Recieved Price Per Kg :</label>
         {netPricePerKg(afterCosts(formData.slaugherPrice,formData.transferPrice),(formData.alivekg*formData.pricePerKg) )}
         <label htmlFor="name">€</label>
       </div>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">KG After Katharisma :</label>
         <input
           type="number"
@@ -193,13 +193,18 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           onChange={handleChange}
         />
       </div>
-      <div>
+      <div  className="items-center justify-center flex   ">
         <label htmlFor="name">Cost Per KG After Katharisma :</label>
         {netAfterkatharismaPricePerKg(afterCosts(formData.slaugherPrice,formData.transferPrice),(formData.alivekg*formData.pricePerKg) )}
        <label htmlFor="name">€</label>
       </div>
-    
+      <div className="items-center justify-center flex mt-3 flex-col">
+      <button onClick={  ()=>{ router.push('/')}} className="rounded-3xl bg-orange-500 p-5 text-white">
+            Back
+            </button>
+            </div>
     </form>
+    
 }
         {/* {!session && (
           // eslint-disable-next-line @next/next/no-html-link-for-pages
