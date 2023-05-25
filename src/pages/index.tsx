@@ -55,21 +55,22 @@ const [editMode ,setEditMode]= useState(false)
           <div>
           {paralaves && paralaves.map((paralavi) => {
   return (
-    <div>
-      <a href={`/paralavi/${paralavi.id.toString()}`} >
+   
+    
     <div key={paralavi.id} className="border border-gray-500 rounded-xl m-4 p-3">
-      
+    <a href={`/paralavi/${paralavi.id.toString()}`} >
         <> <div>Order ID: {paralavi.id}</div>
       <div >Recieved At: {paralavi.RecievedAt.toDateString()}<> </>{paralavi.RecievedAt.toLocaleTimeString()}{paralavi.netKgAfterkatharisma=='NaN' && <span className="ml-1  text-red-700 min-w-fit max-w-fit rounded-lg bg-red-600">🗡️</span> } {paralavi.netKgAfterkatharisma.toString()=='NaN' || <span  className="ml-1 text-green-700 min-w-fit max-w-fit rounded-lg bg-green-600">🗡️</span> } </div>
       {paralavi.netKgAfterkatharisma.toString()=='NaN' || <div  className="ml-0 text-green-700 min-w-fit max-w-fit rounded-lg bg-green-200 opacity-60">Net Clean:{paralavi.netKgAfterkatharisma.toString()+" Kg"} </div> }
       </>
-    
-    </div>
-    </a>
-    {editMode&&<button className="rounded-lg bg-red-500 ml-4 mt-0 p-1 z-0">Delete</button>}
+      </a>
+      {editMode&&<button className="rounded-lg bg-red-500 ml-4 mt-0 p-1 z-0">Delete</button>}
    
-     
     </div>
+ 
+
+     
+ 
   );
 })}
   
