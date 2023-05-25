@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     console.log(formData);
   };
 
-  let slug=router.query.inventory?.toString()
+  const slug=router.query.inventory?.toString()
  
   const { data: ArrivalData } =  trpc.auth.getParalaviById.useQuery({ text: slug});
 
