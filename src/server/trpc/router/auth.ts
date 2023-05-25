@@ -166,6 +166,19 @@ export const authRouter = router({
       }
       });
     }),
+    DeleteArrival: publicProcedure
+    .input(
+      z.object({
+        text: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+       return  await prisma.paralaves.delete({
+        where: {
+          id: input.text.toString(),
+        },
+      });
+    }),
     updateParagelia: publicProcedure
     .input(
       z.object({

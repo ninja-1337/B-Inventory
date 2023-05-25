@@ -29,12 +29,25 @@ const [editMode ,setEditMode]= useState(false)
       // refetches posts after a post is added
     },
   });
+  const delArrival = trpc.auth.DeleteArrival.useMutation({
+    async onSuccess() {
+      // refetches posts after a post is added
+    },
+  });
 
 
   const   hadnleArrival=async ()=>{
     try {
     const id=await (await NewArrival.mutateAsync({text:""})).id
     router.push('/paralavi/'+id); 
+    } catch (cause) {
+      console.error({ cause }, "Failed to add post");
+    }
+  }
+  const   deleteArrival=async (id: string)=>{
+    try {
+    await (await delArrival.mutateAsync({text:id}))
+    window.location.reload();
     } catch (cause) {
       console.error({ cause }, "Failed to add post");
     }
@@ -64,7 +77,7 @@ const [editMode ,setEditMode]= useState(false)
       {paralavi.netKgAfterkatharisma.toString()=='NaN' || <div  className="ml-0 text-green-700 min-w-fit max-w-fit rounded-lg bg-green-200 opacity-60">Net Clean:{paralavi.netKgAfterkatharisma.toString()+" Kg"} </div> }
       </>
       </a>
-      {editMode&&<button className="rounded-lg bg-red-500 ml-4 mt-0 p-1 z-0">Delete</button>}
+      {!editMode&&<button onClick={()=>{deleteArrival(paralavi.id)}}  className="rounded-lg bg-red-500  mt-0 p-1 z-0">Delete</button>}
    
     </div>
  
@@ -79,7 +92,7 @@ const [editMode ,setEditMode]= useState(false)
 
     </div>
          
-            <button onClick={hadnleArrival} className="rounded-full bg-orange-400 p-6 text-white">
+            <button onClick={hadnleArrival} className="rounded-full bg-orange-400 p-6  text-white">
             +  New Arrival
             </button>
        
