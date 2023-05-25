@@ -23,19 +23,6 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
   // {((formData.pricePerKg*formData.alivekg)+formData.slaugherPrice+formData.transferPrice)/formData.revievedNetKG}
-  const netAfterkatharismaPricePerKg= (afterCosts:number , wholeCost: number)=>{
- 
-    const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
-    return ( all / parseInt(formData.netKgAfterkatharisma.toString()) )
-    }
-  const netPricePerKg= (afterCosts:number , wholeCost: number)=>{
- 
-    const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
-    return ( all / parseInt(formData.revievedNetKG.toString()) )
-    }
-const afterCosts= (tcost:number , scost: number)=>{
-return parseInt(tcost.toString())+parseInt(scost.toString())
-}
 
  
   const handleSubmit = (e: FormEvent) => {
@@ -80,20 +67,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
   
   
   }, [slug]); // Empty dependency array ensures the effect runs only once
-useEffect(() => {
-  updateparagelia.mutateAsync({id:ArrivalData?.id.toString()+"",
-  alivekg:formData?.alivekg.toString()+"",
-  alivePigNo:formData?.alivePigNo.toString()+"",
-  netKgAfterkatharisma:formData?.netKgAfterkatharisma.toString()+"",
-  pricePerKg:formData?.pricePerKg.toString()+"",
-  revievedNetKG:formData?.revievedNetKG.toString()+"",
-  slaugherPrice:formData?.slaugherPrice.toString()+"",
-  transferPrice:formData?.transferPrice.toString()+"",
-})
 
-
-
-}, []); // Empty dependency array ensures the effect runs only once
 useEffect(() => {
   updateparagelia.mutateAsync({id:ArrivalData?.id.toString()+"",
   alivekg:formData?.alivekg.toString()+"",
@@ -106,6 +80,21 @@ useEffect(() => {
 })
  
 }, [formData]); // Empty dependency array ensures the effect runs only once
+
+const netAfterkatharismaPricePerKg= (afterCosts:number , wholeCost: number)=>{
+ 
+  const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
+  return ( all / parseInt(formData.netKgAfterkatharisma.toString()) )
+  }
+const netPricePerKg= (afterCosts:number , wholeCost: number)=>{
+
+  const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
+  return ( all / parseInt(formData.revievedNetKG.toString()) )
+  }
+const afterCosts= (tcost:number , scost: number)=>{
+return parseInt(tcost.toString())+parseInt(scost.toString())
+}
+
   return (
     <>
       <Head>
