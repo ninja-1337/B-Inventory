@@ -46,7 +46,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
 
   let slug=router.query.inventory?.toString()
  
-  const { data: ArrivalData } = trpc.auth.getParalaviById.useQuery({ text: slug});
+  const { data: ArrivalData } =  trpc.auth.getParalaviById.useQuery({ text: slug});
 
   const updateparagelia = trpc.auth.updateParagelia.useMutation();
 
@@ -91,8 +91,6 @@ useEffect(() => {
   transferPrice:formData?.transferPrice.toString()+"",
 })
 
-
-slug=router.query.inventory?.toString()
 
 
 }, []); // Empty dependency array ensures the effect runs only once

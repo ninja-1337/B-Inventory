@@ -6,55 +6,14 @@ import { SocialIcon } from "react-social-icons";
 import { trpc } from "../utils/trpc";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/router';
- 
-interface FormData {
 
-  alivePigNo:number;
-  alivekg:number;
-  pricePerKg:number;
-  slaugherPrice:number;
-  transferPrice:number;
-  revievedNetKG:number;
-  netKgAfterkatharisma:number;
-}
 
 const Home: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+
   const router = useRouter();
   const { data: session, status } = useSession();
   // {((formData.pricePerKg*formData.alivekg)+formData.slaugherPrice+formData.transferPrice)/formData.revievedNetKG}
-  const netAfterkatharismaPricePerKg= (afterCosts:number , wholeCost: number)=>{
- 
-    const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
-    return ( all / parseInt(formData.netKgAfterkatharisma.toString()) )
-    }
-  const netPricePerKg= (afterCosts:number , wholeCost: number)=>{
- 
-    const all=parseInt(afterCosts.toString())+ parseInt(wholeCost.toString())
-    return ( all / parseInt(formData.revievedNetKG.toString()) )
-    }
-const afterCosts= (tcost:number , scost: number)=>{
-return parseInt(tcost.toString())+parseInt(scost.toString())
-}
-  const [formData, setFormData] = useState<FormData>({
-
-    alivekg:0,
-    alivePigNo:0,
-    pricePerKg:0,
-    slaugherPrice:0,
-    transferPrice:0,
-    revievedNetKG:0,
-    netKgAfterkatharisma:0
-  });
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Perform any necessary form submission logic here
-    console.log(formData);
-  };
+  
 
   const { data: paralaves }  = trpc.auth.getParalaves.useQuery();
   if (paralaves) {
