@@ -6,6 +6,7 @@ import { SocialIcon } from "react-social-icons";
 import { trpc } from "../utils/trpc";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/router';
+import { Switch, Spacer } from "@nextui-org/react";
 
 
 const Home: NextPage = () => {
@@ -64,7 +65,13 @@ const [editMode ,setEditMode]= useState(false)
         
       <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
            <span className="text-[hsl(280,100%,70%)]"> P</span>aralaves
-          </h1>
+          </h1><span className="pt-2"><span className="pt-0">Enable Editing</span>
+          <span>
+          <Switch  className="pt-2" size="xs" onChange={()=>{
+          
+               setEditMode(!editMode)
+            
+          }} preventDefault={false} checked={editMode} ></Switch></span></span>
           <div>
           {paralaves && paralaves.map((paralavi) => {
   return (
@@ -77,7 +84,7 @@ const [editMode ,setEditMode]= useState(false)
       {paralavi.netKgAfterkatharisma.toString()=='NaN' || <div  className="ml-0 text-green-700 min-w-fit max-w-fit rounded-lg bg-green-200 opacity-60">Net Clean:{paralavi.netKgAfterkatharisma.toString()+" Kg"} </div> }
       </>
       </a>
-      {!editMode&&<button onClick={()=>{deleteArrival(paralavi.id)}}  className="rounded-lg bg-red-500  mt-0 p-1 z-0">Delete</button>}
+      {editMode ? <button onClick={()=>{deleteArrival(paralavi.id)}}  className="rounded-lg bg-red-500  mt-0 p-1 z-0">Delete</button>:<></>}
    
     </div>
  
