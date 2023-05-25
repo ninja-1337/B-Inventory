@@ -33,10 +33,10 @@ const Home: NextPage = () => {
 
   const slug=router.query.inventory?.toString()
  
-  const { data: ArrivalData } =  trpc.auth.getParalaviById.useQuery({ text: slug});
+  const { data: ArrivalData, isFetched, isFetching } =  trpc.auth.getParalaviById.useQuery({ text: slug});
 
   const updateparagelia = trpc.auth.updateParagelia.useMutation();
-
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState<FormData>({
 
     alivekg:parseInt(ArrivalData?.AliveKg.toString()+""),
@@ -52,24 +52,8 @@ const Home: NextPage = () => {
   
   };
 
-
-
-  useEffect(() => {  
-  
-  formData.alivekg=parseInt(ArrivalData?.AliveKg.toString()+"")
-  formData.alivePigNo=parseInt(formData?.alivePigNo.toString()+"")
-  formData.netKgAfterkatharisma=parseInt(formData?.netKgAfterkatharisma.toString()+"")
-  formData.pricePerKg=parseInt(formData?.pricePerKg.toString()+"")
-  formData.revievedNetKG=parseInt(formData?.revievedNetKG.toString()+"")
-  formData.slaugherPrice=parseInt(formData?.slaugherPrice.toString()+"")
-  formData.transferPrice=parseInt(formData?.transferPrice.toString()+"")
-   
-  
-  
-  }, [slug]); // Empty dependency array ensures the effect runs only once
-
-useEffect(() => {
-  updateparagelia.mutateAsync({id:ArrivalData?.id.toString()+"",
+const x=async ()=>{
+ await updateparagelia.mutateAsync({id:ArrivalData?.id.toString()+"",
   alivekg:formData?.alivekg.toString()+"",
   alivePigNo:formData?.alivePigNo.toString()+"",
   netKgAfterkatharisma:formData?.netKgAfterkatharisma.toString()+"",
@@ -77,9 +61,14 @@ useEffect(() => {
   revievedNetKG:formData?.revievedNetKG.toString()+"",
   slaugherPrice:formData?.slaugherPrice.toString()+"",
   transferPrice:formData?.transferPrice.toString()+"",
-})
+ })
+
+}
+
+useEffect(() => {
+x()
  
-}, [formData]); // Empty dependency array ensures the effect runs only once
+}, [formData]); 
 
 const netAfterkatharismaPricePerKg= (afterCosts:number , wholeCost: number)=>{
  
@@ -111,6 +100,8 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
           </h1>
           <p>Arrival ID: {router.query.inventory}</p>
           <p>Recieved At: {ArrivalData?.RecievedAt.toLocaleString()}</p>
+
+          {(typeof ArrivalData?.AliveKg === 'string' && !isFetching)&&
         <form onSubmit={handleSubmit}>
         <h2 className="text-2xl font-extrabold tracking-tight ">
            <span className="text-[hsl(280,100%,70%)]">  </span> Alive
@@ -209,6 +200,7 @@ return parseInt(tcost.toString())+parseInt(scost.toString())
       </div>
     
     </form>
+}
         {/* {!session && (
           // eslint-disable-next-line @next/next/no-html-link-for-pages
           <>

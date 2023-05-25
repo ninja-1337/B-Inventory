@@ -56,10 +56,13 @@ const Home: NextPage = () => {
           {paralaves && paralaves.map((paralavi, index) => {
   return (
     <div key={index} className="border border-gray-500 rounded-xl m-4 p-3">
-        <Link  href={"/paralavi/"+paralavi.id}> <> <div>Paralavi ID: {paralavi.id}</div>
+      <a href={`/paralavi/${paralavi.id.toString()}`} >
+        <> <div>Paralavi ID: {paralavi.id}</div>
       <div >Recieved At: {paralavi.RecievedAt.toDateString()}<> </>{paralavi.RecievedAt.toLocaleTimeString()}</div>
       </>
-      </Link>
+ 
+      </a>
+      <button className="rounded-lg bg-red-500 p-1">Delete</button>
     </div>
   );
 })}
